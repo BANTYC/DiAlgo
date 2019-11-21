@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">DiAlgo</string>
+    <string name="err_x_length">x не может быть пустым</string>
+    <string name="err_x1_lower_x0">x1 не может быть меньше x0</string>
+    <string name="err_func_length">Функция не может быть пустой</string>
+    <string name="err_step">Некорректное значение шага</string>
+    <string name="button_start_text">Поiхали</string>
+    <string name="accuracy_text">Точность</string>
+    <string name="func_hint">Введите функцию</string>
+    <string name="x1_hint">x1</string>
+    <string name="x0_hint">x0</string>
+
+</resources>
