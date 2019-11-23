@@ -14,16 +14,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Graph {
-    LineChart lineChart;
-    Context context;
-    List<Entry> lineEntries = new ArrayList<Entry>();
-    LineData lineData;
+    private LineChart lineChart;
+    private Context context;
+    private List<Entry> lineEntries = new ArrayList<>();
+    private LineData lineData;
     public Graph(LineChart lineChart, Context context){
         this.lineChart = lineChart;
         this.context  = context;
     }
     public void drawLineChart() {
-        List<Entry> lineEntries = setData();
+        List<Entry> lineEntries = getData();
         LineDataSet lineDataSet = new LineDataSet(lineEntries, "f(x)");
         lineDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
         lineDataSet.setDrawCircles(false);
@@ -51,14 +51,17 @@ public class Graph {
         lineChart.setData(lineData);
     }
 
-    public List<Entry> setData() {
+    private List<Entry> getData() {
         return lineEntries;
     }
-    public void addData(float x, float y){
+    public void addPoint(float x, float y){
         lineEntries.add(new Entry(x,y));
     }
     public void clear(){
         lineData = null;
         lineEntries.clear();
+    }
+    public void putData(ArrayList<Entry> input){
+        lineEntries = input;
     }
 }

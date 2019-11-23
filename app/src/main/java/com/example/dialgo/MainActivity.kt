@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.data.Entry
 
 import com.google.android.material.textfield.TextInputLayout
 
@@ -13,7 +14,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        supportActionBar!!.hide()
+        supportActionBar!! .hide()
 
         val x0Input:TextInputLayout = findViewById(R.id.x0)
         val x1Input:TextInputLayout = findViewById(R.id.x1)
@@ -27,15 +28,17 @@ class MainActivity : AppCompatActivity() {
             if(checkFunc(funcInput)&&checkX(x0Input,x1Input)){
                 val evaluator:Evaluator = Evaluator(funcInput.editText!!.text.toString())
                 graph.clear()
-                var x0 = x0Input.editText!!.text.toString().toDouble()
-                var x1 = x1Input.editText!!.text.toString().toDouble()
+                val x0 = x0Input.editText!!.text.toString().toDouble()
+                val x1 = x1Input.editText!!.text.toString().toDouble()
                 val stepDouble = step.editText!!.text.toString().toDouble()
-                var x = x0;
+                var x = x0
 
+                val point:ArrayList<Entry> = arrayListOf()
                 while (x <= x1){
-                    graph.addData(x.toFloat(), evaluator.eval(x).toFloat())
-                    x+=stepDouble;
+                    point.add(Entry(x.toFloat(), evaluator.eval(x).toFloat()))
+                    x+=stepDouble
                 }
+                graph.putData(point)
                 graph.drawLineChart()
             }
         }
@@ -51,7 +54,7 @@ class MainActivity : AppCompatActivity() {
             step.error = getString(R.string.err_step)
             return false
         }
-        return true;
+        return true
     }
     fun checkX(x0:TextInputLayout,x1:TextInputLayout):Boolean{
         val x0Length = x0.editText?.length()?: 0
