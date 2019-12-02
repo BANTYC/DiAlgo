@@ -1,8 +1,9 @@
-package com.example.dialgo;
+package com.example.dialgo.Graph;
 
 import android.content.Context;
 import android.graphics.Color;
 
+import com.example.dialgo.R;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
