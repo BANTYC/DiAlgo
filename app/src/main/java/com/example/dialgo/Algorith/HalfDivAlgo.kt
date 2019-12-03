@@ -20,7 +20,7 @@ class HalfDivAlgo (val evaluator: Evaluator){
             if (checkToRoot(x2)) {
                 return root(x2)
             }
-            val mid:Double = (x2 - x1) / 2
+            val mid:Double = (x2 + x1) / 2
             if (checkToRoot(mid))
                 return root(mid)
             if (checkFunSigns(x1,mid))
@@ -30,7 +30,7 @@ class HalfDivAlgo (val evaluator: Evaluator){
             }
         }
         successful = false
-        return (x2 - x1)/2
+        return (x2 + x1)/2
     }
 
     private fun root(x2: Double): Double {
@@ -40,7 +40,7 @@ class HalfDivAlgo (val evaluator: Evaluator){
 
     fun checkToRoot(x1: Double):Boolean{
         val small = 0.000000000000001
-        return abs(x1) < small
+        return abs(x1) <= small
     }
 
     fun checkFunSigns(x1: Double,x2: Double):Boolean{

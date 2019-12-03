@@ -1,21 +1,29 @@
 package com.example.dialgo
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Display
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
+import android.widget.Toast
+import com.example.dialgo.Algorith.HalfDivAlgo
 import com.example.dialgo.Graph.Evaluator
 import com.example.dialgo.Graph.Graph
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        supportActionBar!! .hide()
+        setSupportActionBar(toolbar)
+        supportActionBar!!.title = "График"
 
         val x0Input:TextInputLayout = findViewById(R.id.x0)
         val x1Input:TextInputLayout = findViewById(R.id.x1)
@@ -24,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         val startButton:Button = findViewById(R.id.start)
         val lineChart:LineChart = findViewById(R.id.chart)
         val graph = Graph(lineChart, this)
+
         startButton.setOnClickListener{
 
             if(checkFunc(funcInput)&&checkX(x0Input,x1Input)&&checkStep(step)){
@@ -41,10 +50,12 @@ class MainActivity : AppCompatActivity() {
                 }
                 graph.putData(point)
                 graph.drawLineChart()
+
             }
         }
 
     }
+
     private fun checkStep(step:TextInputLayout):Boolean{
         val stepLength:Int = step.editText?.length()?: 0
         if((stepLength == 0)&&(step.editText!!.text.toString().toDouble() <= 0.0)) {
@@ -99,4 +110,17 @@ class MainActivity : AppCompatActivity() {
             return true
         }
     }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.toolbar_activity_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == R.id.action_swap){
+            startActivity(Intent(this, AlgorithmActivity::class.java))
+        }
+        return true
+    }
+
 }
