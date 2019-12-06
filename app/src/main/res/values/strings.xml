@@ -13,5 +13,5 @@
     <string name="eps_hint">Точность</string>
     <string name="ans_text">Ответ:</string>
     <string name="acc_text">Точность:</string>
-
+    <string name="err_eps">Некорректная точность</string>
 </resources>

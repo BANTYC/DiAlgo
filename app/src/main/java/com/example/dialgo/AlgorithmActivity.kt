@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.Toast
 import com.example.dialgo.Algorithm.HalfDivAlgo
 import com.example.dialgo.Graph.Evaluator
 import com.google.android.material.textfield.TextInputLayout
@@ -36,11 +37,19 @@ class AlgorithmActivity : AppCompatActivity() {
                 val x0 = x0Input.editText!!.text.toString().toDouble()
                 val x1 = x1Input.editText!!.text.toString().toDouble()
 
-                ans.setText(algo.perform(x0,x1).toString())
-                if(!algo.isOk()){
-                    ans.setText("Неправильные x")
+                val answer:Double = algo.perform(x0, x1)
+
+                if(algo.isOk()){
+
+                    val ansText:String = "Ответ: " + answer.toString()
+                    val accText:String = "Точность: " + algo.getAccuracy().toString()
+                    ans.setText(ansText)
+                    acc.setText(accText)
                 }
-                acc.setText(algo.getAccuracy().toString())
+                else {
+                    Toast.makeText(this, "Неверные x-ы", Toast.LENGTH_LONG).show()
+                }
+
             }
         }
     }
@@ -90,7 +99,7 @@ class AlgorithmActivity : AppCompatActivity() {
     private fun checkIter(eps:TextInputLayout):Boolean{
         val epsLength:Int = eps.editText?.length()?: 0
         return if (epsLength == 0 || eps.editText?.text.toString().toDouble() < 0) {
-            eps.error = "Введите корректное значение"
+            eps.error = getString(R.string.err_eps)
             false
         } else{
             eps.error = null

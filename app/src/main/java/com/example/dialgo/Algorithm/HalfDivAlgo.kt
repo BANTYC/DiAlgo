@@ -14,8 +14,8 @@ class HalfDivAlgo (val evaluator: Evaluator, val eps:Double){
     fun perform( x1:Double, x2: Double):Double{
         var x1 = x1
         var x2 = x2
-        var mid = (x2 + x1) / 2
-        accuracy = (x2 - x1)
+        var mid = x1 / 2 + x2 / 2
+        accuracy = abs(x2 - x1)
 
         if (!checkFunSigns(x1, x2)){
             goodInput = false
@@ -51,7 +51,7 @@ class HalfDivAlgo (val evaluator: Evaluator, val eps:Double){
     fun isOk() = goodInput
 
     private fun checkToRoot(x1: Double):Boolean{
-        return abs(x1) < eps
+        return abs(evaluator.eval(x1)) < eps
     }
 
     private fun checkFunSigns(x1: Double, x2: Double):Boolean{
