@@ -9,5 +9,9 @@
     <string name="func_hint">Введите функцию</string>
     <string name="x1_hint">x1</string>
     <string name="x0_hint">x0</string>
+    <string name="step_hint">Шаг</string>
+    <string name="eps_hint">Точность</string>
+    <string name="ans_text">Ответ:</string>
+    <string name="acc_text">Точность:</string>
 
 </resources>

@@ -3,12 +3,9 @@ package com.example.dialgo
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Display
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
-import android.widget.Toast
-import com.example.dialgo.Algorith.HalfDivAlgo
 import com.example.dialgo.Graph.Evaluator
 import com.example.dialgo.Graph.Graph
 import com.github.mikephil.charting.charts.LineChart
@@ -58,7 +55,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun checkStep(step:TextInputLayout):Boolean{
         val stepLength:Int = step.editText?.length()?: 0
-        if((stepLength == 0)&&(step.editText!!.text.toString().toDouble() <= 0.0)) {
+        if((stepLength == 0)||(step.editText!!.text.toString().toDouble() <= 0.0)) {
             step.error = getString(R.string.err_step)
             return false
         }
@@ -88,8 +85,8 @@ class MainActivity : AppCompatActivity() {
         }
         val x0Value:Double = x0.editText?.text.toString().toDouble()
         val x1Value:Double= x1.editText?.text.toString().toDouble()
-        if(x0Length > 0 && x1Length > 0 &&  x1Value <= x0Value) {
-            x0.error = getString(R.string.err_x1_lower_x0)
+        if(x1Value <= x0Value) {
+            x1.error = getString(R.string.err_x1_lower_x0)
             return false
         }
         else{
@@ -101,13 +98,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun checkFunc(funcInput:TextInputLayout):Boolean{
         val funcLength:Int = funcInput.editText?.length()?: 0
-        if (funcLength == 0) {
+        return if (funcLength == 0) {
             funcInput.error = getString(R.string.err_func_length)
-            return false
-        }
-        else{
+            false
+        } else{
             funcInput.error = null
-            return true
+            true
         }
     }
 
