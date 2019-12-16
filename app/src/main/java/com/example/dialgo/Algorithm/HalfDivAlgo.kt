@@ -11,36 +11,32 @@ class HalfDivAlgo (val evaluator: Evaluator, val eps:Double){
 
 
 
-    fun perform( x1:Double, x2: Double):Double{
-        var x1 = x1
-        var x2 = x2
+    fun perform( firstPoint:Double, secondPoint: Double):Double{
+        var x1 = firstPoint
+        var x2 = secondPoint
         var mid = x1 / 2 + x2 / 2
         accuracy = abs(x2 - x1)
-
         if (!checkFunSigns(x1, x2)){
             goodInput = false
             return 0.0
         }
-
         while (accuracy > eps){
-            if(checkToRoot(x1)) {
-                return x1
-            }
-            if (checkToRoot(x2)) {
-                return x2
-            }
+            when {
+                checkToRoot(x1) -> return x1
+                checkToRoot(x2) -> return x2
 
-            if(checkFunSigns(x1, x2)){
-                mid = (x2 + x1) / 2
-                accuracy /= 2
+                checkFunSigns(x1, x2) ->{
+                    mid = (x2 + x1) / 2
+                    accuracy /= 2
 
-                if (abs(mid) < eps) {
-                    return mid
+                    if (abs(mid) < eps)
+                        return mid
+                    else
+                        when{
+                            checkFunSigns(x1, mid) -> x2 = mid
+                            checkFunSigns(x2, mid) -> x1 = mid
+                        }
                 }
-                if(checkFunSigns(x1, mid))
-                    x2 = mid
-                else
-                    x1 = mid
             }
         }
         return mid
@@ -57,10 +53,7 @@ class HalfDivAlgo (val evaluator: Evaluator, val eps:Double){
     private fun checkFunSigns(x1: Double, x2: Double):Boolean{
         val sign1 = evaluator.eval(x1).sign
         val sign2 = evaluator.eval(x2).sign
-        if(sign1 * sign2 ==  -1.0)
-            return true
-        else
-            return false
+        return sign1 * sign2 ==  -1.0
     }
 
 
